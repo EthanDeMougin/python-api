@@ -26,3 +26,10 @@ def create_book():
 def get_books():
     return jsonify(books), 200
 
+@app.route('/books/<int:book_id>', methods=['PUT'])
+def update_book(book_id):
+    book = next((book for book in books if book["id"] == book_id), None)
+    if book is None:
+        return jsonify({
+            "error": "Book not found"
+        }), 404
